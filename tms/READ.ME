@@ -1,0 +1,135 @@
+📖 Overview
+The Transport Management System (TMS) is a web‑based application designed to streamline the management of fleet operations. It provides a centralized platform for administrators, transport officers, and drivers to collaborate efficiently, reduce operational costs, and improve fleet utilization.
+
+Key Objectives:
+
+✅ Automate vehicle and driver allocation
+
+✅ Reduce administrative overhead
+
+✅ Prevent double‑booking with availability checks
+
+✅ Provide real‑time insights through dashboards and charts
+
+✅ Enable driver self‑registration with admin approval
+
+✅ Maintain audit trails for accountability
+
+✨ Features
+🖥️ Admin Module
+Dashboard: Statistics cards, vehicle status pie chart, fuel consumption trend, maintenance distribution, upcoming service alerts, recent trips
+
+Vehicle Management: Full CRUD operations with modal forms and DataTables
+
+Driver Management: Manage driver profiles, edit status, delete accounts
+
+Vehicle Allocations: Assign vehicles to drivers with overlap prevention
+
+Route Management: Define routes with distance and duration
+
+Pending Drivers: Approve or reject self‑registered drivers
+
+PDF Reports: Generate reports for Vehicles, Drivers, Trips, Fuel, Maintenance, Fleet Utilization
+
+👨‍✈️ Officer Module
+Trip Management: Create trips with automatic availability checks, close trips with distance/fuel, cancel trips
+
+Fuel Logging: Record fuel purchases with odometer readings
+
+Maintenance Logging: Track maintenance activities with cost and status
+
+🧑‍💻 Driver Module
+Dashboard: View upcoming trips
+
+My Trips: View trip history
+
+My Profile: Update phone and address
+
+Self‑Registration: Register with admin approval
+
+📧 Email Notifications
+Trip assignment confirmation sent to drivers
+
+Service reminders on login (vehicles due within 7 days)
+
+Daily cron script for automated reminders (cron/check_expiry.php)
+
+📊 Reports & Analytics
+Interactive charts (vehicle status, fuel consumption, maintenance distribution)
+
+DataTables with search, sort, and pagination
+
+PDF reports (requires full FPDF library for real PDF output)
+
+🛠️ Technology Stack
+Component	Technology
+Backend	PHP 8.x (pure procedural, no frameworks)
+Database	MySQL/MariaDB (via XAMPP/phpMyAdmin)
+Frontend	HTML5, CSS3, Bootstrap 5 (CDN), vanilla JS
+Data Tables	jQuery DataTables 1.13.7 + Responsive extension
+Charts	Chart.js 4.4.0
+Icons	Font Awesome 6.5.1
+Email	PHP mail() function (DEV_MODE logging)
+PDF Generation	Embedded FPDF class (minimal – replaceable)
+AJAX	Fetch API (vanilla JS)
+All client‑side libraries are loaded via CDN – no external downloads required!
+
+📥 Installation Guide
+Prerequisites
+XAMPP (or any LAMP/WAMP stack) with PHP 8.x and MySQL
+
+Web browser (Chrome, Firefox, Edge recommended)
+
+Step‑by‑Step Setup
+1. Download & Extract
+bash
+# Copy the entire "tms" folder to your web server's document root
+# For XAMPP: C:\xampp\htdocs\tms
+2. Start Servers
+Open XAMPP Control Panel
+
+Click Start for Apache and MySQL
+
+3. Create Database
+Open phpMyAdmin: http://localhost/phpmyadmin
+
+Click New → Database name: tms
+
+Charset: utf8mb4_general_ci
+
+Click Create
+
+4. Import SQL
+Select the tms database
+
+Click Import tab
+
+Choose database.sql from the tms/ folder
+
+Click Go
+
+5. Configure (if needed)
+Open config/db.php and verify credentials:
+
+php
+define('DB_HOST', 'localhost');
+define('DB_USER', 'root');        // Your MySQL username
+define('DB_PASS', '');            // Your MySQL password
+define('DB_NAME', 'tms');
+6. Access the Application
+Open browser: http://localhost/tms/auth/login.php
+
+🔑 Login Credentials
+All sample passwords are: password
+
+Role	Email	Password
+Admin	admin@tms.com	password
+Officer	officer@tms.com	password
+Driver	driver@tms.com	password
+Note: After first login, you can create additional users via the system.
+
+👥 User Roles & Permissions
+Role	Accessible Modules
+Admin	Dashboard, Vehicles, Drivers, Allocations, Routes, Pending Drivers, Reports (PDF generation)
+Officer	Trips (create/close/cancel), Fuel Logs, Maintenance Logs
+Driver	Dashboard (upcoming trips), My Trips (history), My Profile (edit phone/address), Self‑Registration
